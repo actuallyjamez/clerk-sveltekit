@@ -1,5 +1,11 @@
 # clerk-sveltekit
 
+## 0.4.1
+
+### Patch Changes
+
+- improve types ([#1](https://github.com/actuallyjamez/clerk-sveltekit/pull/1))
+
 ## 0.4.0
 
 ### Minor Changes
