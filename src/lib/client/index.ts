@@ -1,4 +1,4 @@
-import Clerk from '@clerk/clerk-js'
+import { Clerk } from '@clerk/clerk-js'
 import clerk from './store.js'
 import _initializeClerkClient, { DEFAULT_OPTIONS } from './initializeClerkClient.js'
 

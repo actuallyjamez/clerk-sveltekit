@@ -1,5 +1,5 @@
-import type Clerk from '@clerk/clerk-js'
-import type ClerkHeadless from '@clerk/clerk-js/headless'
+import type { Clerk } from '@clerk/clerk-js'
+import type { Clerk as ClerkHeadless } from '@clerk/clerk-js/headless'
 import type { ClerkOptions } from '@clerk/types'
 import type ClerkStore from './store.js'
 

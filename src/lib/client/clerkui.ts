@@ -1,13 +1,13 @@
 import type {
-	Clerk,
+	CreateOrganizationProps,
+	OrganizationProfileProps,
+	OrganizationSwitcherProps,
 	SignInProps,
 	SignUpProps,
 	UserButtonProps,
 	UserProfileProps,
-	OrganizationProfileProps,
-	OrganizationSwitcherProps,
-	CreateOrganizationProps,
 } from '@clerk/types'
+import type { Clerk } from '@clerk/clerk-js'
 
 type ComponentPropsMap = {
 	SignIn: SignInProps
@@ -25,14 +25,15 @@ const COMPONENT_DEFAULTS: {
 	SignIn: {},
 	SignUp: {},
 	UserButton: {
+		afterSignOutUrl: '/',
 		showName: false,
-		afterSignOutUrl: '/sign-in',
 		userProfileMode: 'modal',
 	},
 	UserProfile: {},
 	OrganizationProfile: {},
 	OrganizationSwitcher: {},
 	CreateOrganization: {},
+
 } as const
 
 type ClerkUIConfig<T extends keyof ComponentPropsMap = keyof ComponentPropsMap> = {
@@ -51,6 +52,7 @@ export const clerkUI = (node: HTMLDivElement, { clerk, componentType, props }: C
 
 	if (clerk) {
 		// console.log(`[ClerkUI] Mounting initial ${currentComponentType}`)
+		// @ts-expect-error props is always defined
 		clerk[`mount${currentComponentType}`](node, props)
 	}
 
@@ -67,6 +69,7 @@ export const clerkUI = (node: HTMLDivElement, { clerk, componentType, props }: C
 
 			if (clerk) {
 				// console.log(`[ClerkUI] Mounting updated ${currentComponentType}`)
+				// @ts-expect-error props is always defined
 				clerk[`mount${currentComponentType}`](node, props)
 			}
 		},

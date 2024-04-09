@@ -11,17 +11,16 @@
 	export let x = 'in'
 	let componentType: 'SignIn' | 'SignUp' = 'SignIn'
 
-	$: afterSignXUrl = x === 'in' ? 'afterSignInUrl' : 'afterSignUpUrl'
 	$: componentType = x === 'in' ? 'SignIn' : 'SignUp'
 
-	type $$Props = (SignInProps | SignUpProps) & { x: 'in' | 'up'}
+	type $$Props = (SignInProps | SignUpProps) & { x: 'in' | 'up' }
 
 	const CANCEL_AFTER = 5000
 	const REDIRECT_AFTER_AUTH = 'redirectAfterAuth'
 	const REDIRECT_URL = 'redirectUrl'
 	const EVENT_USER = 'clerk-sveltekit:user'
 
-	$: redirectUrlFromParam = $$props.redirectUrl || $$props[afterSignXUrl] || '/'
+	$: redirectUrlFromParam = $$props.redirectUrl || '/'
 	let clerkRedirectUrl = redirectUrlFromParam
 	let showForm = false
 	let timeout: ReturnType<typeof setTimeout>
@@ -55,7 +54,7 @@
 				redirectOnceLoggedIn(url.searchParams.get(REDIRECT_AFTER_AUTH) ?? '/')
 
 				// After a while, if Clerk hasn't completed the login flow, show the login form.
-				timeout = setTimeout(() => showForm = true, CANCEL_AFTER)
+				timeout = setTimeout(() => (showForm = true), CANCEL_AFTER)
 			} else {
 				// Not a redirect from Clerk, so show the login form.
 				showForm = true
@@ -75,7 +74,7 @@
 			<Redirect to={redirectUrlFromParam} />
 		</SignedIn>
 		<SignedOut>
-			<div use:clerkUI={{ clerk, componentType, props: {...$$props, redirectUrl: clerkRedirectUrl, [afterSignXUrl]: null }}} />
+			<div use:clerkUI={{ clerk, componentType, props: {...$$props, redirectUrl: clerkRedirectUrl }}} />
 		</SignedOut>
 	</ClerkLoaded>
 {/if}
